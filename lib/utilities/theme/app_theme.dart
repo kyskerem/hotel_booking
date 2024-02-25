@@ -25,6 +25,10 @@ final class AppTheme {
           elevation: 20,
           backgroundColor: Colors.white,
         ),
+        tabBarTheme: const TabBarTheme(
+          dividerColor: Colors.transparent,
+          indicatorColor: Colors.transparent,
+        ),
       );
   static ThemeData get darkTheme => ThemeData.dark(useMaterial3: true).copyWith(
         scaffoldBackgroundColor: AppColors.scaffoldColor,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:hotel_booking_mock/utilities/colors/app_colors.dart';
 import 'package:hotel_booking_mock/utilities/extension/context_extension.dart';
+import 'package:hotel_booking_mock/views/info/info_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -16,9 +18,8 @@ class HomeView extends StatelessWidget {
         items: _bottomNavItems,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ClipRRect(
-        borderRadius:
-            const BorderRadius.vertical(bottom: Radius.elliptical(200, 400)),
+      floatingActionButton: ClipPath(
+        clipper: OvalBottomBorderClipper(),
         child: FloatingActionButton(
           onPressed: () {},
           child: const Icon(Icons.add),
@@ -65,22 +66,22 @@ class HomeView extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 4, bottom: 4),
-              child: Container(
-                decoration: ShapeDecoration(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(50),
-                      topLeft: Radius.circular(96),
-                    ),
-                  ),
-                  color: AppColors.blueColor,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(32),
                 ),
-                width: context.dynamicWidth(.4),
-                height: context.dynamicHeight(.07),
+                child: ClipPath(
+                  clipper: RoundedDiagonalPathClipper(),
+                  child: Container(
+                    color: AppColors.blueColor,
+                    width: context.dynamicWidth(.6),
+                    height: context.dynamicHeight(.085),
+                  ),
+                ),
               ),
             ),
             Positioned.fromRelativeRect(
-              rect: const RelativeRect.fromLTRB(0, 145, 50, 0),
+              rect: const RelativeRect.fromLTRB(0, 150, 40, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
@@ -148,7 +149,14 @@ class HomeView extends StatelessWidget {
       child: ElevatedButton(
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(AppColors.blueColor)),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const InfoView(),
+              ),
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
